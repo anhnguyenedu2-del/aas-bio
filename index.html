@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Automation System — Bộ công cụ AI &amp; Automation</title>
+<meta name="description" content="Bộ công cụ AI & Automation mình đang dùng mỗi ngày — tạo video AI, viết nội dung, giọng đọc AI, automation và marketing. Chia sẻ lại cho mọi người.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b14;
+    --bg-soft:#0c1120;
+    --card:rgba(255,255,255,.04);
+    --card-hover:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.09);
+    --text:#e8ecf4;
+    --muted:#8b93a7;
+    --cyan:#22d3ee;
+    --violet:#a78bfa;
+    --grad:linear-gradient(135deg,#22d3ee 0%,#818cf8 50%,#a78bfa 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'Be Vietnam Pro',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    line-height:1.6;
+  }
+  /* nền lưới tech mờ */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(600px 300px at 50% -50px, rgba(34,211,238,.12), transparent 70%),
+      radial-gradient(500px 400px at 90% 20%, rgba(167,139,250,.08), transparent 70%),
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size:auto,auto,44px 44px,44px 44px;
+  }
+  .wrap{
+    position:relative;z-index:1;
+    max-width:640px;margin:0 auto;
+    padding:56px 20px 40px;
+  }
+
+  /* ===== HEADER ===== */
+  .header{text-align:center;margin-bottom:44px}
+  .avatar{
+    width:96px;height:96px;margin:0 auto 18px;
+    border-radius:50%;
+    background:var(--grad);
+    padding:3px;
+  }
+  .avatar-inner{
+    width:100%;height:100%;border-radius:50%;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .avatar-inner img{
+    width:88%;height:88%;object-fit:contain;
+  }
+  .pick-badge{
+    display:inline-block;
+    font-size:10px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#0a0e1a;
+    background:var(--grad);
+    border-radius:100px;
+    padding:2px 9px;
+    margin-left:8px;
+    vertical-align:2px;
+  }
+  .badge{
+    display:inline-block;
+    font-size:11px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    border:1px solid rgba(34,211,238,.35);
+    border-radius:100px;
+    padding:5px 14px;
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:28px;font-weight:800;letter-spacing:-.01em;
+    margin-bottom:10px;
+  }
+  h1 .grad{
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .tagline{
+    color:var(--muted);font-size:15px;
+    max-width:460px;margin:0 auto;
+  }
+
+  /* ===== CTA ===== */
+  .cta-btn{
+    display:block;
+    margin:22px auto 0;
+    max-width:440px;
+    background:var(--grad);
+    color:#0a0e1a;
+    font-weight:700;font-size:15px;
+    text-decoration:none;text-align:center;
+    border-radius:14px;
+    padding:15px 22px;
+    box-shadow:0 4px 24px rgba(34,211,238,.35);
+    transition:all .2s ease;
+  }
+  .cta-btn small{
+    display:block;font-weight:500;font-size:12px;
+    opacity:.75;margin-top:2px;
+  }
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(34,211,238,.5)}
+
+  /* ===== CATEGORY ===== */
+  .category{margin-bottom:34px}
+  .cat-head{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:14px;
+  }
+  .cat-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--grad);
+    box-shadow:0 0 10px rgba(34,211,238,.6);
+    flex-shrink:0;
+  }
+  .cat-title{
+    font-size:13px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;
+    color:var(--text);
+  }
+  .cat-count{
+    margin-left:auto;
+    font-size:12px;color:var(--muted);
+  }
+
+  /* ===== LINK CARD ===== */
+  .links{display:flex;flex-direction:column;gap:10px}
+  .link-card{
+    display:flex;align-items:center;gap:14px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 18px;
+    text-decoration:none;color:var(--text);
+    transition:all .2s ease;
+  }
+  .link-card:hover{
+    background:var(--card-hover);
+    border-color:rgba(34,211,238,.4);
+    transform:translateY(-2px);
+  }
+  .link-info{flex:1;min-width:0}
+  .link-name{font-size:15px;font-weight:600}
+  .link-desc{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .link-arrow{
+    color:var(--muted);flex-shrink:0;
+    transition:all .2s ease;
+    font-size:16px;
+  }
+  .link-card:hover .link-arrow{color:var(--cyan);transform:translateX(3px)}
+
+  /* ===== RATING ===== */
+  .rate{display:flex;align-items:center;gap:6px;margin-top:5px}
+  .stars{position:relative;display:inline-block;line-height:1;font-size:12px;letter-spacing:1.5px;color:rgba(255,255,255,.18)}
+  .stars b{position:absolute;left:0;top:0;overflow:hidden;white-space:nowrap;color:#fbbf24;font-weight:400;letter-spacing:1.5px}
+  .rate-num{font-size:12px;font-weight:700;color:#fbbf24}
+  .rate-src{font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:100px;padding:1px 7px}
+
+  /* ===== DISCLOSURE ===== */
+  .disclosure{
+    font-size:12px;color:var(--muted);
+    text-align:center;
+    border:1px dashed var(--border);
+    border-radius:12px;
+    padding:12px 16px;
+    margin:38px 0 30px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{text-align:center;padding-bottom:20px}
+  .socials{
+    display:flex;justify-content:center;gap:14px;
+    margin-bottom:18px;
+  }
+  .social-btn{
+    width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--muted);
+    transition:all .2s ease;
+  }
+  .social-btn:hover{
+    color:var(--cyan);
+    border-color:rgba(34,211,238,.4);
+    transform:translateY(-2px);
+  }
+  .social-btn svg{width:20px;height:20px;fill:currentColor}
+  .copyright{font-size:12px;color:var(--muted)}
+  .copyright b{
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  @media (max-width:480px){
+    .wrap{padding:44px 16px 32px}
+    h1{font-size:24px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <!-- LOGO: lưu file logo vào bio/logo.png -->
+    <div class="avatar"><div class="avatar-inner"><img src="AAS logo.png" alt="AAS — AI Automation System"></div></div>
+    <div class="badge">AI Automation System</div>
+    <h1>Bộ công cụ <span class="grad">AI &amp; Automation</span><br>mình dùng mỗi ngày</h1>
+    <p class="tagline">Toàn bộ công cụ mình đã tự tay dùng để tạo video, viết nội dung, tự động hóa và làm marketing — chia sẻ lại cho mọi người.</p>
+    <a class="cta-btn" href="https://autopost-kit.vercel.app/" target="_blank" rel="noopener">
+      ⚡ Nhận ngay hệ thống Tự động Đăng bài
+      <small>Xây dựng bởi Anh — AI Automation System</small>
+    </a>
+  </header>
+
+  <!-- ===== 1. TẠO VIDEO AI ===== -->
+  <section class="category">
+    <div class="cat-head">
+      <span class="cat-dot"></span>
+      <span class="cat-title">Tạo video AI</span>
+      <span class="cat-count">4 công cụ</span>
+    </div>
+    <div class="links">
+      <!-- LINK AFF: Topview AI -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Topview AI<span class="pick-badge">Đề xuất #1</span></div>
+          <div class="link-desc">Tạo video từ link sản phẩm, clone video, cắt short, tạo video từ mô tả — gom nhiều công cụ trong một, giá tốt nhất</div>
+          <div class="rate"><span class="stars"><b style="width:98%">★★★★★</b>★★★★★</span><span class="rate-num">4.9/5</span><span class="rate-src">AAS đề xuất</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Google Flow -->
+      <a class="link-card" href="https://googleai.taovideoai.vn/" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Google Flow</div>
+          <div class="link-desc">Tạo video AI điện ảnh với Veo — công cụ chính thức của Google</div>
+          <div class="rate"><span class="stars"><b style="width:90%">★★★★★</b>★★★★★</span><span class="rate-num">4.5/5</span><span class="rate-src">Review chuyên gia</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: CapCut -->
+      <a class="link-card" href="https://www.capcut.com/capcut_pc_web/fission_receive?code=21XFkl56760780&amp;lng=vi-VN" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">CapCut</div>
+          <div class="link-desc">Chỉnh sửa video nhanh trên máy tính và điện thoại, kho hiệu ứng khổng lồ</div>
+          <div class="rate"><span class="stars"><b style="width:96%">★★★★★</b>★★★★★</span><span class="rate-num">4.8/5</span><span class="rate-src">App Store</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Pictory -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Pictory</div>
+          <div class="link-desc">Biến bài viết hoặc kịch bản thành video hoàn chỉnh trong vài phút</div>
+          <div class="rate"><span class="stars"><b style="width:92%">★★★★★</b>★★★★★</span><span class="rate-num">4.6/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== 2. TẠO NỘI DUNG ===== -->
+  <section class="category">
+    <div class="cat-head">
+      <span class="cat-dot"></span>
+      <span class="cat-title">Tạo nội dung</span>
+      <span class="cat-count">6 công cụ</span>
+    </div>
+    <div class="links">
+      <!-- LINK AFF: ChatGPT -->
+      <a class="link-card" href="https://chatgpt.com/" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">ChatGPT</div>
+          <div class="link-desc">Trợ lý AI đa năng — viết bài, lên ý tưởng, phân tích, trả lời mọi chủ đề</div>
+          <div class="rate"><span class="stars"><b style="width:94%">★★★★★</b>★★★★★</span><span class="rate-num">4.7/5</span><span class="rate-src">G2 · 2.000+ đánh giá</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Claude -->
+      <a class="link-card" href="https://claude.ai/" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Claude</div>
+          <div class="link-desc">AI Agent — thích hợp tạo Agent riêng để viết content theo đúng phong cách của bạn</div>
+          <div class="rate"><span class="stars"><b style="width:92%">★★★★★</b>★★★★★</span><span class="rate-num">4.6/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Writesonic -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Writesonic<span class="pick-badge">Đề xuất</span></div>
+          <div class="link-desc">Viết bài chuẩn SEO, quảng cáo và mô tả sản phẩm bằng AI</div>
+          <div class="rate"><span class="stars"><b style="width:98%">★★★★★</b>★★★★★</span><span class="rate-num">4.9/5</span><span class="rate-src">AAS đề xuất · chuẩn SEO</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Copy.ai -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Copy.ai</div>
+          <div class="link-desc">Viết caption, email và nội dung bán hàng chỉ trong vài giây</div>
+          <div class="rate"><span class="stars"><b style="width:94%">★★★★★</b>★★★★★</span><span class="rate-num">4.7/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Koala AI -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Koala AI</div>
+          <div class="link-desc">Viết bài blog dài chuẩn SEO chỉ với 1 cú click</div>
+          <div class="rate"><span class="stars"><b style="width:92%">★★★★★</b>★★★★★</span><span class="rate-num">4.6/5</span><span class="rate-src">Capterra</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Beehiiv -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Beehiiv</div>
+          <div class="link-desc">Nền tảng bản tin email tốt nhất cho người sáng tạo nội dung</div>
+          <div class="rate"><span class="stars"><b style="width:90%">★★★★★</b>★★★★★</span><span class="rate-num">4.5/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== 3. GIỌNG ĐỌC AI ===== -->
+  <section class="category">
+    <div class="cat-head">
+      <span class="cat-dot"></span>
+      <span class="cat-title">Cá nhân hóa</span>
+      <span class="cat-count">4 công cụ</span>
+    </div>
+    <div class="links">
+      <!-- LINK AFF: ElevenLabs -->
+      <a class="link-card" href="https://try.elevenlabs.io/mbtln71bcdsp" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">ElevenLabs</div>
+          <div class="link-desc">Giọng đọc AI tự nhiên nhất hiện nay — có hỗ trợ tiếng Việt</div>
+          <div class="rate"><span class="stars"><b style="width:90%">★★★★★</b>★★★★★</span><span class="rate-num">4.5/5</span><span class="rate-src">G2 · 1.140 đánh giá</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: HeyGen -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">HeyGen<span class="pick-badge">Đề xuất</span></div>
+          <div class="link-desc">Avatar AI nói như người thật — làm video không cần lộ mặt, dịch video đa ngôn ngữ</div>
+          <div class="rate"><span class="stars"><b style="width:98%">★★★★★</b>★★★★★</span><span class="rate-num">4.9/5</span><span class="rate-src">AAS đề xuất</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Vbee -->
+      <a class="link-card" href="https://vbee.vn/ref/81K57CQT" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Vbee AIVoice</div>
+          <div class="link-desc">Giọng đọc AI tiếng Việt 3 miền, tự nhiên giàu cảm xúc — chuẩn cho video review, thuyết minh</div>
+          <div class="rate"><span class="rate-src">1,5 triệu người dùng Việt tin dùng</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Higgsfield AI -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Higgsfield AI</div>
+          <div class="link-desc">Thích hợp tạo KOL ảo và hiệu ứng camera điện ảnh — video cá nhân hóa chất lượng cao</div>
+          <div class="rate"><span class="stars"><b style="width:94%">★★★★★</b>★★★★★</span><span class="rate-num">4.7/5</span><span class="rate-src">AAS đề xuất</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== 4. AUTOMATION ===== -->
+  <section class="category">
+    <div class="cat-head">
+      <span class="cat-dot"></span>
+      <span class="cat-title">Tên miền, Website, hệ thống Automation</span>
+      <span class="cat-count">3 công cụ</span>
+    </div>
+    <div class="links">
+      <!-- LINK AFF: iNET -->
+      <a class="link-card" href="https://inet.vn/dang-ky-ten-mien?aff=57807" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">iNET<span class="pick-badge">Đề xuất</span></div>
+          <div class="link-desc">Máy chủ &amp; tên miền Việt Nam — tích hợp sẵn n8n, không cần cài đặt (nhận workflow đăng bài / tạo ảnh tự động tích hợp sẵn)</div>
+          <div class="rate"><span class="stars"><b style="width:98%">★★★★★</b>★★★★★</span><span class="rate-num">4.9/5</span><span class="rate-src">VNNIC · ICANN, 15+ năm</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Vultr -->
+      <a class="link-card" href="https://www.vultr.com/?ref=9909659" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Vultr</div>
+          <div class="link-desc">Cloud server quốc tế giá tốt — triển khai bot và automation trong 1 phút</div>
+          <div class="rate"><span class="stars"><b style="width:86%">★★★★★</b>★★★★★</span><span class="rate-num">4.3/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Make -->
+      <a class="link-card" href="https://www.make.com/en/register?pc=anhaas20" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Make</div>
+          <div class="link-desc">Tự động hóa kéo-thả không cần code — nối hàng nghìn ứng dụng thành quy trình tự chạy</div>
+          <div class="rate"><span class="stars"><b style="width:92%">★★★★★</b>★★★★★</span><span class="rate-num">4.6/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== 5. MARKETING ===== -->
+  <section class="category">
+    <div class="cat-head">
+      <span class="cat-dot"></span>
+      <span class="cat-title">Marketing</span>
+      <span class="cat-count">5 công cụ</span>
+    </div>
+    <div class="links">
+      <!-- LINK AFF: OpenArt -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">OpenArt</div>
+          <div class="link-desc">Tạo ảnh thumbnail YouTube nổi bật, hút click — kèm ảnh AI cho nội dung và quảng cáo</div>
+          <div class="rate"><span class="stars"><b style="width:90%">★★★★★</b>★★★★★</span><span class="rate-num">4.5/5</span><span class="rate-src">AAS đề xuất</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Kit (ConvertKit) -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Kit (ConvertKit)</div>
+          <div class="link-desc">Email marketing và automation dành riêng cho người sáng tạo</div>
+          <div class="rate"><span class="stars"><b style="width:88%">★★★★★</b>★★★★★</span><span class="rate-num">4.4/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Systeme.io -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Systeme.io<span class="pick-badge">Đề xuất</span></div>
+          <div class="link-desc">Phễu bán hàng + email + khóa học — tất cả trong một, có gói miễn phí</div>
+          <div class="rate"><span class="stars"><b style="width:96%">★★★★★</b>★★★★★</span><span class="rate-num">4.8/5</span><span class="rate-src">G2 · Trustpilot · 10.000+ đánh giá</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: Browse AI -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">Browse AI</div>
+          <div class="link-desc">Trích xuất dữ liệu từ website bất kỳ, tự động theo dõi đối thủ</div>
+          <div class="rate"><span class="stars"><b style="width:96%">★★★★★</b>★★★★★</span><span class="rate-num">4.8/5</span><span class="rate-src">G2</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <!-- LINK AFF: CustomGPT -->
+      <a class="link-card" href="#" target="_blank" rel="noopener">
+        <div class="link-info">
+          <div class="link-name">CustomGPT</div>
+          <div class="link-desc">Chatbot trợ lý toàn diện — dịch, ghi âm, phân tích website bằng các model AI mạnh nhất. Chuẩn cho người làm remote, đa ngôn ngữ</div>
+          <div class="rate"><span class="stars"><b style="width:92%">★★★★★</b>★★★★★</span><span class="rate-num">4.6/5</span><span class="rate-src">AAS đánh giá · khá tốt</span></div>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== DISCLOSURE ===== -->
+  <!-- LINK: kênh YouTube -->
+  <a class="disclosure" href="#" target="_blank" rel="noopener" style="display:block;text-decoration:none;color:var(--muted)">▶ Mỗi công cụ trên đây đều có video review thật và demo hướng dẫn từng bước trên kênh YouTube của mình — ghé xem để chọn đúng công cụ trước khi xuống tiền nhé!</a>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="socials">
+      <!-- LINK: Facebook -->
+      <a class="social-btn" href="#" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.19 2.23.19v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99C18.34 21.13 22 16.99 22 12z"/></svg>
+      </a>
+      <!-- LINK: TikTok -->
+      <a class="social-btn" href="#" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .58.05.85.13V9.4a6.33 6.33 0 0 0-5.94 10.14A6.33 6.33 0 0 0 15.86 15V8.9a8.16 8.16 0 0 0 4.77 1.52v-3.45a4.85 4.85 0 0 1-1.04-.28z"/></svg>
+      </a>
+      <!-- LINK: YouTube -->
+      <a class="social-btn" href="#" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      </a>
+    </div>
+    <p class="copyright">© 2026 <b>AI Automation System</b> · Xây dựng bằng AI, chia sẻ bằng trải nghiệm thật</p>
+  </footer>
+
+</div>
+</body>
+</html>
