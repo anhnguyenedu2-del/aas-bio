@@ -118,6 +118,19 @@
   }
   .cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(34,211,238,.5)}
 
+  /* ===== GIFT ROW ===== */
+  .gift-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .gift-btn{
+    display:inline-block;font-size:12.5px;font-weight:700;
+    padding:9px 18px;border-radius:100px;text-decoration:none;
+    background:var(--grad);color:#0a0e1a;
+    transition:all .2s ease;
+  }
+  .gift-btn:hover{transform:translateY(-2px);box-shadow:0 4px 18px rgba(34,211,238,.4)}
+  .gift-btn.alt{
+    background:none;border:1.5px solid rgba(34,211,238,.5);color:var(--cyan);
+  }
+
   /* ===== CATEGORY ===== */
   .category{margin-bottom:34px}
   .cat-head{
@@ -226,10 +239,6 @@
     <div class="badge">AI Automation System</div>
     <h1>Bộ công cụ <span class="grad">AI &amp; Automation</span><br>mình dùng mỗi ngày</h1>
     <p class="tagline">Toàn bộ công cụ mình đã tự tay dùng để tạo video, viết nội dung, tự động hóa và làm marketing — chia sẻ lại cho mọi người.</p>
-    <a class="cta-btn" href="https://docs.google.com/document/d/13EED6T-T947hw96CPMq2cpBBJ41yZMXppve_kqS5lC0/edit?usp=sharing" target="_blank" rel="noopener">
-      ⚡ Nhận ngay hệ thống Tự động Đăng bài
-      <small>Xây dựng bởi Anh — AI Automation System</small>
-    </a>
   </header>
 
   <!-- ===== 0. TÊN MIỀN, WEBSITE, AUTOMATION ===== -->
@@ -240,15 +249,18 @@
       <span class="cat-count">3 công cụ</span>
     </div>
     <div class="links">
-      <!-- LINK AFF: iNET -->
-      <a class="link-card" href="https://inet.vn/vps?aff=57807" target="_blank" rel="noopener">
+      <!-- LINK AFF: iNET VPS + quà tặng -->
+      <div class="link-card">
         <div class="link-info">
-          <div class="link-name">iNET<span class="pick-badge">Đề xuất</span></div>
-          <div class="link-desc">Máy chủ &amp; tên miền Việt Nam — tích hợp sẵn n8n, không cần cài đặt (nhận workflow đăng bài / tạo ảnh tự động tích hợp sẵn)</div>
+          <div class="link-name">Máy Chủ VPS tích hợp sẵn n8n và workflow<span class="pick-badge">Đề xuất</span></div>
+          <div class="link-desc">VPS dùng tiếng Việt, có sẵn n8n và workflow kèm hướng dẫn chi tiết — mua là chạy, không cần cài đặt</div>
           <div class="rate"><span class="stars"><b style="width:98%">★★★★★</b>★★★★★</span><span class="rate-num">4.9/5</span><span class="rate-src">VNNIC · ICANN, 15+ năm</span></div>
+          <div class="gift-row">
+            <a class="gift-btn" href="https://inet.vn/vps?aff=57807" target="_blank" rel="noopener">Thuê VPS ngay →</a>
+            <a class="gift-btn alt" href="https://docs.google.com/document/d/13EED6T-T947hw96CPMq2cpBBJ41yZMXppve_kqS5lC0/edit?usp=sharing" target="_blank" rel="noopener">🎁 Nhận hệ thống Tự động Đăng bài</a>
+          </div>
         </div>
-        <span class="link-arrow">→</span>
-      </a>
+      </div>
       <!-- LINK AFF: Make -->
       <a class="link-card" href="https://www.make.com/en/register?pc=anhaas20" target="_blank" rel="noopener">
         <div class="link-info">
